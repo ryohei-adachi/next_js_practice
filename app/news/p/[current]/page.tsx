@@ -5,13 +5,14 @@ import NewsList from "@/app/_components/NewsList";
 import Pagenation from "@/app/_components/Pagination";
 
 type Props = {
-    params: {
-        current: string;
-    };
+    params: Promise<{
+        paramCurrent: string;
+    }>;
 };
 
 export default async function Page({params}: Props ) {
-    const current = parseInt(params.current, 10);
+    const { paramCurrent } = await params;
+    const current = parseInt(paramCurrent, 10);
 
     if (Number.isNaN(current) || current < 1 ) {
         notFound();
