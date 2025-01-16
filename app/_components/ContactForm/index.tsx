@@ -1,6 +1,5 @@
 "use client";
 
-import { sendGAEvent } from "@next/third-parties/google";
 import { createContactData } from "@/app/_actions/contact";
 import { useActionState } from "react";
 import styles from "./index.module.css";
@@ -13,10 +12,6 @@ const initialState = {
 export default function ContactForm() {
     const [state, formAction] = useActionState(createContactData, initialState);
     console.log(state);
-
-    const handleSubmit = () => {
-        sendGAEvent({event: "contact", value: "submit"});
-    }
     if(state.status === "success") {
         return (
             <p className={styles.success}>
@@ -27,7 +22,7 @@ export default function ContactForm() {
         );
     }
     return (
-        <form className={styles.form} action={formAction} onSubmit={handleSubmit}>
+        <form className={styles.form} action={formAction}>
             <div className={styles.horizontal}>
                 <div className={styles.item}>
                     <label className={styles.lable} htmlFor="lastname">
